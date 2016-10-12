@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+        
+        <!-- 开启扫描 -->
+        <context:component-scan base-package="com.ninemax"/>
+        <!-- 数据库配置信息 -->
+        <context:property-placeholder location="db.properties"/>
+        
+        <!-- mybayis 配置oracle -->
+        <bean id = "sqlSessionFactoryForOracle" class = "org.mybatis.spring.SqlSessionFactoryBean">
+        	<property name="dataSource" ref = "mysqlDataSource"/>
+        	<!-- mapper映射 -->
+        	<property name="mapperLocations" value="classpath:/mybatis/oracle/*.xml"/>
+        	<!-- mybatis配置文件路径 -->
+        	<property name="configLocation" value="classpath:/mybatis/config.xml"/>
+        </bean>
+        
+        <!-- mybatis 配置mysql -->
+        <bean id = "sqlSessionFactoryForMySQL" class = "org.mybatis.spring.SqlSessionFactoryBean">
+        	<property name="dataSource" ref = "oracleDataSource"/>
+        	<!-- mapper -->
+        	<property name="mapperLocations" value="classpath:/mybatis/mysql/*.xml"/>
+        	<!-- mybatis -->
+        	<property name="configLocation" value="classpath:/mybatis/config.xml"/>
+        </bean>
+        
+        
+        <!-- sqlSessionTemplate -->
+        <bean id = "sqlSessionTemplate" class = "org.mybatis.spring.SqlSessionTemplate">
+        	<constructor-arg index="0" ref = "sqlSessionFactoryForOracle"/>
+        	<!-- 批量 -->
+        	<constructor-arg index="1" value="BATCH"/>
+        </bean>
+        
+        <!-- oracle mapper接口扫描 -->
+        <bean class = "org.mybatis.spring.mapper.ClassPathMapperScanner">
+        	<!-- mapper接口所在包 -->
+        	<property name="basePackage" value="com.ninemax.mapper.oracle"/>
+        	<property name="sqlSessionFactory" ref = "sqlSessionFactoryForOracle"/>
+        </bean>
+        
+        <!-- mysql mapper接口扫描 -->
+        <bean class = "org.mybatis.spring.mapper.ClassPathMapperScanner">
+        	<!-- mapper接口所在包 -->
+        	<property name="basePackage" value="com.ninemax.mapper.mysql"/>
+        	<property name="sqlSessionFactory" ref = "sqlSessionFactoryForMySQL"/>
+        </bean>
+        
+        
+        <!-- 数据源配置  tomcat jdbc连接池 -->
+        <bean id = "mysqlDataSource" class = "org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        	
+        	<property name="driverClassName" value="${db.mysql.driverClass}"/>
+        	<property name="url" value="${db.mysql.url}"/>
+        	<property name="username" value="${db.mysql.username}"/>
+        	<property name="password" value="${db.mysql.password}"/>
+        </bean>
+        
+        <!-- 数据源配置  tomcat jdbc连接池 -->
+        <bean id = "oracleDataSource" class = "org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        	<property name="driverClassName" value="${db.oracle.driverClass}"/>
+        	<property name="url" value="${db.oracle.url}"/>
+        	<property name="username" value="${db.oracle.username}"/>
+        	<property name="password" value="${db.oracle.password}"/>
+        </bean>
+        
+        <!-- 事务 -->
+        <!-- 
+        <bean id = "transactionManager" class = "org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        	<property name="dataSource" ref="oracleDataSource"/>
+        </bean>
+        <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+         -->
+</beans>
