@@ -24,11 +24,12 @@ public class Oracle2MySQL {
 		
 		// 反射获取dao层方法
 		try {
-			Object oracleMapper = context.getBean(oracle + "Mapper");
-			Method oracleMethod = oracleMapper.getClass().getMethod("select" + oracle, null);
-			Object mysqlMapper = context.getBean((new StringBuilder()).append(Character.toLowerCase(mysql.charAt(0))).append(mysql.substring(1)).toString() + "Mapper");
-			Method mysqlMethod = mysqlMapper.getClass().getMethod("insert" + mysql, List.class);
-			mysqlMethod.invoke(mysqlMapper, oracleMethod.invoke(mysqlMapper, new Object[0]));
+			Object objectOracle = context.getBean(oracle + "Dao");
+			Method oracleMethod = objectOracle.getClass().getMethod("query" + oracle, null);
+			Object objectMysql = context.getBean((new StringBuilder()).append(Character.toLowerCase(mysql.charAt(0))).append(mysql.substring(1)).toString() + "Mapper");
+			Method mysqlMethod = objectMysql.getClass().getMethod("insert" + mysql, List.class);
+			System.out.println(objectOracle);
+			mysqlMethod.invoke(objectMysql, oracleMethod.invoke(objectOracle, new Object[0]));
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

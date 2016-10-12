@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.ninemax.mapper.oracle.JournalDao">
+	
+	
+	<resultMap id = "rm" type = "com.ninemax.entity.Journal">
+		<result property = "journalId" column = "journalid"/>
+		<result property = "journalName" column = "journalname"/>
+		<result property = "articleCount" column = "articlecount"/>
+		<result property = "authorCount" column = "authorcount"/>
+		<result property = "chinaAuthorCount" column = "chinaauthorcount"/>
+		<result property = "otherAuthorCount" column = "otherauthorcount"/>
+		<result property = "chinaArticleCount" column = "chinaarticlecount"/>
+	</resultMap>
+	
+	<select id = "queryJournal" resultMap = "rm">
+		SELECT * FROM NSTL.JOURNAL
+	</select>
+
+</mapper>

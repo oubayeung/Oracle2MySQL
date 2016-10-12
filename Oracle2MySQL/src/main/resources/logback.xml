@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -69,7 +69,7 @@
     </appender>
 
     <!-- 很多人使用Mybatis的时候，控制台不能输出SQL语句，造成调试困难。只需要让DAO层的日志级别调整为DEBUG就可以了 -->
-    <logger name="com.ninemax.mapper" level="INFO" />
+    <logger name="com.ninemax.mapper" level="DEBUG" />
 
     <!-- 指定项目可输出的最低级别日志 -->
     <root level="trace">
