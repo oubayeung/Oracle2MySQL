@@ -20,14 +20,26 @@ public class Oracle2MySQL {
 	@Autowired
 	ApplicationContext context;
 	
-	public void execute(String oracle, String mysql) {
+	/**
+	 * <p>Oracle 数据复制到 MySQL 执行方法</p>
+	 * @param oracleMapperName
+	 * 		<li>MyBatis oracle Mapper接口名</li>
+	 * @param oracleExcuteMethodName
+	 * 		<li>MyBatis oracle Mapper接口执行方法名</li>
+	 * @param mysqlMapperName
+	 * 		<li>MyBatis mysql Mapper接口名</li>
+	 * @param mysqlExcuteMethodName
+	 * 		<li>MyBatis mysql Mapper接口执行方法名</li>
+	 */
+	public void executeOracle2MySQL(String oracleMapperName, String oracleExcuteMethodName, String mysqlMapperName, String mysqlExcuteMethodName) {
 		
 		// 反射获取dao层方法
 		try {
-			Object objectOracle = context.getBean(oracle + "Dao");
-			Method oracleMethod = objectOracle.getClass().getMethod("query" + oracle, null);
-			Object objectMysql = context.getBean((new StringBuilder()).append(Character.toLowerCase(mysql.charAt(0))).append(mysql.substring(1)).toString() + "Mapper");
-			Method mysqlMethod = objectMysql.getClass().getMethod("insert" + mysql, List.class);
+			Object objectOracle = context.getBean((new StringBuilder()).append(Character.toLowerCase(oracleMapperName.charAt(0))).append(oracleMapperName.substring(0)).toString());
+			Method oracleMethod = objectOracle.getClass().getMethod(oracleExcuteMethodName, null);
+			
+			Object objectMysql = context.getBean((new StringBuilder()).append(Character.toLowerCase(mysqlMapperName.charAt(0))).append(mysqlMapperName.substring(1)).toString());
+			Method mysqlMethod = objectMysql.getClass().getMethod(mysqlExcuteMethodName, List.class);
 			System.out.println(objectOracle);
 			mysqlMethod.invoke(objectMysql, oracleMethod.invoke(objectOracle, new Object[0]));
 		} catch (NoSuchMethodException e) {

@@ -13,7 +13,7 @@
 	</resultMap>
 	
 	
-	<insert id="insertJournal" parameterType="java.util.List">
+	<insert id="insertBatch" parameterType="java.util.List">
 		
 		INSERT INTO journal 
 			(

@@ -13,7 +13,7 @@
 		<result property = "chinaArticleCount" column = "chinaarticlecount"/>
 	</resultMap>
 	
-	<select id = "queryJournal" resultMap = "rm">
+	<select id = "selectList" resultMap = "rm">
 		SELECT * FROM NSTL.JOURNAL
 	</select>
 

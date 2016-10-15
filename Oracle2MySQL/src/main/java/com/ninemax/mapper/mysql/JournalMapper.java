@@ -1,10 +1,9 @@
 package com.ninemax.mapper.mysql;
 
-import java.util.List;
-
 import com.ninemax.entity.Journal;
+import com.ninemax.mapper.BaseMapper;
 
-public interface JournalMapper {
+public interface JournalMapper extends BaseMapper<Journal> {
 
-	void insertJournal(List<Journal> journals);
+	
 }

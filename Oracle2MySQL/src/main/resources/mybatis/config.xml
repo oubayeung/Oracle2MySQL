@@ -4,8 +4,4 @@
 	<settings>
 		<setting name="cacheEnabled" value="true"/>
 	</settings>
-	<!-- <mappers>
-		<mapper resource="mybatis/mysql/JournalMapper.xml"/>
-		<mapper resource="mybatis/oracle/JournalDao.xml"/>
-	</mappers> -->
 </configuration>
