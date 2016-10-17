@@ -13,9 +13,7 @@ public class Application {
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring-mybatis.xml");
 		System.out.println("===========================");
 		Oracle2MySQL oracle2MySQL = (Oracle2MySQL) context.getBean("oracle2MySQL");
-		
 		oracle2MySQL.executeOracle2MySQL("JournalDao", "selectList", "JournalMapper", "insertBatch");
-		
 	
 	}
 	

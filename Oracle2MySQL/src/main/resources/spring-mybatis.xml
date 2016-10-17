@@ -84,7 +84,7 @@
        
         <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
          
-        <bean id = "journalMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <bean id = "JournalMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
         	<property name="mapperInterface" value="com.ninemax.mapper.mysql.JournalMapper"/>
         	<property name="sqlSessionFactory" ref="sqlSessionFactoryForMySQL"/>
         </bean>

@@ -43,6 +43,13 @@ public interface BaseMapper<T> {
 	 * @return
 	 */
 	T selectOne(T entity);
+
+	/**
+	 * <p>查询全部记录/p>
+	 * @param entity
+	 * @return
+	 */
+	List<T> selectList();
 	
 	/**
 	 * <p>查询全部记录/p>

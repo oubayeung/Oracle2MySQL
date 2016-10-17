@@ -13,8 +13,18 @@
 		<result property = "chinaArticleCount" column = "chinaarticlecount"/>
 	</resultMap>
 	
+	<sql id="Base_sql">
+		journalid, 
+		journalname,
+		articlecount,
+		authorcount,
+		chinaauthorcount,
+		otherauthorcount,
+		chinaarticlecount
+	</sql>
+	
 	<select id = "selectList" resultMap = "rm">
-		SELECT * FROM NSTL.JOURNAL
+		SELECT <include refid="Base_sql"/> FROM NSTL.JOURNAL
 	</select>
 
 </mapper>

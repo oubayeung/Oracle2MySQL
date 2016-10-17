@@ -35,13 +35,14 @@ public class Oracle2MySQL {
 		
 		// 反射获取dao层方法
 		try {
-			Object objectOracle = context.getBean((new StringBuilder()).append(Character.toLowerCase(oracleMapperName.charAt(0))).append(oracleMapperName.substring(0)).toString());
+			Object objectOracle = context.getBean(oracleMapperName);
 			Method oracleMethod = objectOracle.getClass().getMethod(oracleExcuteMethodName, null);
 			
-			Object objectMysql = context.getBean((new StringBuilder()).append(Character.toLowerCase(mysqlMapperName.charAt(0))).append(mysqlMapperName.substring(1)).toString());
+			Object objectMysql = context.getBean(mysqlMapperName);
 			Method mysqlMethod = objectMysql.getClass().getMethod(mysqlExcuteMethodName, List.class);
 			System.out.println(objectOracle);
 			mysqlMethod.invoke(objectMysql, oracleMethod.invoke(objectOracle, new Object[0]));
+			System.out.println("迁移成功！");
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
