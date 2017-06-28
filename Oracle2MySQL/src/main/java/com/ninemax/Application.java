@@ -14,7 +14,7 @@ public class Application {
 		System.out.println("===========================");
 		Oracle2MySQL oracle2MySQL = (Oracle2MySQL) context.getBean("oracle2MySQL");
 		oracle2MySQL.executeOracle2MySQL("JournalDao", "selectList", "JournalMapper", "insertBatch");
-	
+	//DDD
 	}
 	
 }
